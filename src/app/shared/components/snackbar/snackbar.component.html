@@ -1,0 +1,20 @@
+<div *ngIf="openNotifications.length" class="alert-toast fixed bottom-0 right-0 m-8 w-5/6 md:w-full max-w-sm">
+
+  <!-- choose background color based the notification type using ngClass -->
+  <div *ngFor="let notification of openNotifications"
+        [ngClass]="snackDye(notification.type)"
+        (click)="dismiss(notification)"
+        class="relative close cursor-pointer flex flex-col items-start justify-between w-full p-2 mt-2 h-full max-h-32 rounded shadow-lg text-white">
+    <!-- display notification title -->
+    <div>
+      {{notification.title}}
+    </div>
+    <!-- display notification message -->
+    <div>
+      {{notification.message}}
+    </div>
+
+    <svg-icon src="assets/images/close.svg" svgClass="absolute top-2 right-1 h-6 w-6" alt="close button"></svg-icon>
+  </div>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="flex flex-col justify-center p-6 bg-gray-100 rounded-lg shadow-md h-full">
+  <div class="prod-title mb-4">
+    <!-- product name -->
+    <p class="text-lg uppercase text-gray-900 font-bold">{{product.name}}</p>
+    <!-- product category -->
+    <p class="uppercase text-sm text-gray-600">{{product.category}}</p>
+  </div>
+  <div class="mt-auto prod-info grid gap-10">
+    <div class="flex flex-col md:flex-row justify-between items-center text-gray-900">
+
+      <!-- Display price -->
+      <p [ngClass]="product.quantity === 0 ? 'line-through opacity-60' : ''" class="font-bold text-lg">{{product.price | currency:'USD':'symbol'}}</p>
+
+      <div class="flex justify-between items-center text-sm ml-auto">
+        <div *ngIf="product.quantity > 0" class="flex flex-row mr-4 items-center rounded-lg">
+          <!-- decrease quantity button -->
+          <button (click)="decreaseQuantity()" [disabled]="quantity === 1"
+                  class="disabled:opacity-60 disabled:cursor-default focus:outline-none bg-green-300 hover:bg-green-400 disabled:hover:bg-gray-300 text-gray-700 font-bold py-1 px-1 rounded-full inline-flex items-center ">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" /></svg>
+          </button>
+          <!-- quantity input field -->
+          <span class="mx-2">{{quantity}}</span>
+          <!-- increase quantity button -->
+          <button (click)="increaseQuantity()" [disabled]="quantity === product.quantity"
+                  class="disabled:opacity-60 disabled:cursor-default focus:outline-none bg-green-300 hover:bg-green-400 text-gray-700 font-bold py-1 px-1 rounded-full inline-flex items-center ">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+          </button>
+        </div>
+
+        <!-- add to cart button -->
+        <!-- disabled when quantity equals zero -->
+        <button [disabled]="product.quantity === 0"
+                (click)="addToCart()"
+                [ngClass]="product.quantity === 0 ? 'disabled:opacity-60 border-red-500 hover:bg-red-500 disabled:cursor-default text-red-500 hover:text-white' : 'border-green-300 hover:bg-green-300 hover:text-gray-800'"
+                class="text-md px-4 py-2 transition ease-in duration-200 uppercase rounded-full  border-2 focus:outline-none">
+          {{product.quantity > 0 ? 'Add to cart' : 'Sold out'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

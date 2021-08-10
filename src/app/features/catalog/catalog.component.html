@@ -1,0 +1,37 @@
+<div class="max-w-7xl mx-auto px-8 mt-6 mb-12">
+  <!-- Catalog bar - filter -->
+  <app-catalog-bar [categories]="categories" (onCategorySelected)="changeSelectedCategory($event)"></app-catalog-bar>
+
+  <!-- list products -->
+  <div *ngIf="products | async as prdcts">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  auto-rows-fr gap-8 my-8" >
+      <app-card *ngFor="let product of prdcts |  slice : (pageNumber - 1) * pageLength : pageNumber * pageLength"
+                [product]="product"
+                (onAddToCart)="addToCart($event)">
+      </app-card>
+    </div>
+
+    <!-- pagination: would be designed better with a a good api call -->
+    <div class="flex justify-end items-center font-semibold uppercase text-gray-700">
+      <div class="mx-8">
+        <!-- calculate range of products displayed -->
+        Displaying {{ ( pageNumber - 1 ) * pageLength + 1 }}-{{ pageLength * pageNumber <  prdcts.length ? pageLength * pageNumber : prdcts.length }} of {{ prdcts.length }}
+      </div>
+
+      <!--pagination left -->
+      <!-- disbabled when pageNumber equals 1 -->
+      <button [disabled]="pageNumber === 1" (click)="previousPage()"
+              class="btn btn-outline-secondary btn-sm p-4 bg-gray-100 hover:bg-gray-300 mr-2 disabled:opacity-60 disabled:cursor-default">
+        <svg class="w-6 h-6 " fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/></svg>
+      </button>
+
+      <!--pagination right button svg -->
+      <!-- disabled when pageLength * pageNumber is equal or greater than the number of products -->
+      <button [disabled]="pageLength * pageNumber >=  prdcts.length" (click)="nextPage()"
+              class="btn btn-outline-secondary btn-sm p-4 bg-gray-100 hover:bg-gray-300 disabled:opacity-60 disabled:cursor-default">
+        <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="flex content-center items-center justify-center h-full my-24">
+  <div class="w-full max-w-md w-auto">
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-2xl bg-gray-800 border-0">
+      <div class="flex-auto px-4 lg:px-10 py-10">
+        <form [formGroup]="loginForm">
+          <div class="relative w-full mb-3">
+            <label class="block text-gray-100 text-xs font-bold mb-2" for="grid-password"><span class="uppercase">Email</span> david@gotta.co</label>
+            <input formControlName="email" type="email" placeholder="Email" email required
+              class="border-0 px-3 py-3 placeholder-gray-400 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" />
+            <div class="text-red-500" *ngIf="fc.email.errors && fc.email.value && fc.email.touched">
+              Invalid email
+            </div>
+          </div>
+          <div class="relative w-full mb-3">
+            <label class="block text-gray-100 text-xs font-bold mb-2" for="grid-password"><span class="uppercase">Password</span> tea</label>
+            <input formControlName="password" type="password" placeholder="Password"
+              class="form-input border-0 px-3 py-3 placeholder-gray-400 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" />
+          </div>
+          <div class="text-center mt-6">
+            <button (click)="login()" [disabled]="isLoggingIn || loginForm.pristine || (loginForm.invalid && loginForm.dirty)" type="button"
+              class="flex justify-center items-center bg-green-300 text-gray-800 active:bg-green-200 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full disabled:bg-green-100">
+              Sign In
+              <svg-icon *ngIf="isLoggingIn" svgClass="animate-spin h-5 w-5 ml-2" src="assets/images/refresh.svg" alt="Loading spinner"></svg-icon>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

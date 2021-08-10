@@ -1,0 +1,41 @@
+<nav class="bg-white dark:bg-gray-800 shadow transition delay-75 duration-200 ease-in-out">
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <!-- logo - links to catalog when logged in, else to the root domain -->
+        <a class="flex-shrink-0 cursor-pointer" [routerLink]="['/', isUserAuthenticated ? 'catalog' : '']">
+          <svg-icon svgClass="h-8 w-32 text-green-300" src="assets/images/logo.svg" alt="Logo"></svg-icon>
+        </a>
+      </div>
+      <!-- Only displayed if user is authenticated -->
+      <div *ngIf="isUserAuthenticated" class="block ml-4 flex items-center md:ml-6">
+        <div class="inline-block text-left">
+          <!-- cart button -->
+          <a type="button"
+             routerLink="/cart"
+             title="Shopping cart"
+             class="relative flex items-center justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500">
+            <span class="sr-only"> Shopping Cart Dropdown menu </span>
+            <svg-icon svgClass="h-6 w-6 text-gray-800" viewBox="0 0 20 20" src="assets/images/cart.svg" alt="Shopping Cart Dropdown menu"></svg-icon>
+            <!-- number of items in cart bubble -->
+            <span class="absolute bottom-0 right-0 flex items-center justify-center bg-green-300 block w-6 h-6 rounded-full text-sm font-medium text-gray-700">
+              {{(cart.getTotalQuantity | async) || 0}}
+            </span>
+          </a>
+
+        </div>
+        <div class="ml-3 relative inline-block text-left">
+
+          <!-- logout button -->
+          <button type="button"
+             (click)="logout()"
+             title="Logout"
+             class="relative flex items-center justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500">
+            <span class="sr-only"> Logout </span>
+            <svg-icon svgClass="h-6 w-6 text-gray-800" viewBox="0 0 20 24" src="assets/images/logout.svg"  alt="Logout"></svg-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
